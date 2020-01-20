@@ -1,33 +1,25 @@
 # Space Object Registry 
 A fast and simple RESTful API for Messier objects in Python.
 
-### Contributors: 
-Serhat YILDIRIM @julioyildo
-Victor DARCEL @darcelvictor
-Wladimir DELENCLOS @wdelenclos
+## What is Space Object Registry ? 
 
-## Data : 
-Based on https://www.datastro.eu/explore/dataset/catalogue-de-messier/
+SOR contains data provided by https://www.datastro.eu/explore/dataset/catalogue-de-messier/ 8 object type : Galaxy, Globular Cluster, Open Cluster, Emission Nebula, Planetary Nebula, Reflection Nebula, Double star, Supernova remnant.
 
-8 object type :
-Galaxy, Globular Cluster, Open Cluster, Emission Nebula, Planetary Nebula, Reflection Nebula, Double star, Supernova remnant.
 
-les données que contiendront votre catalogue (Messier amélioré)
- l'intérêt scientifique de ces données et de votre catalogue
- les fonctionnalités minimales de votre outil de consultation
- les fonctionnalités idéales de votre outil
- les technologies pressenties pour réaliser le projet
+#### Minimal functionnalities
+Get more than 110 objects of the sky by NGC, Messier index, Season, Magnitude, Size, Distance (l.y / a. l.), RA, Dec, Constellation, Discoverer Year of discovery. Get images associated. Rate observability. Rate Interest. 
 
-## Stack:
-#### Back-end
+#### Stack
 - Python 
 - Flask
 - FlaskPlus
-- Mongo ( and pymongo)
-#### Front-end
+- Mongo (and pymongo)
 - Vue.JS
-
 
 ## Install guide
 
 
+## Contributors: 
+- Serhat YILDIRIM - @julioyildo
+- Victor DARCEL - @darcelvictor
+- Wladimir DELENCLOS - @wdelenclos
