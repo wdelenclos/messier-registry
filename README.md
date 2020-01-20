@@ -7,7 +7,7 @@ SOR contains data provided by https://www.datastro.eu/explore/dataset/catalogue-
 
 
 #### Minimal functionnalities
-Get more than 110 objects of the sky by NGC, Messier index, Season, Magnitude, Size, Distance (l.y / a. l.), RA, Dec, Constellation, Discoverer Year of discovery. Get images associated. Rate observability. Rate Interest. 
+Get more than 110 objects of the sky by NGC, Messier index, Season, Magnitude, Size, Distance (l.y / a. l.), RA, Dec, Constellation, Discoverer Year of discovery. Get images associated. Articles content scraped about the object. 
 
 #### Stack
 - Python 
