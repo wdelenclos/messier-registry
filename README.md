@@ -24,8 +24,7 @@ The scientific attract is to facilitate access to scientific articles and correl
 - Swagger
 
 ## Install guide
-inst
-``
+install dependencies
 
 Run Mongo instance 
 `` docker-compose up -d ``
