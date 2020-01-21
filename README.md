@@ -30,7 +30,10 @@ Run Mongo instance
 `` docker-compose up -d ``
 
 Start python server
-`` python run.py ``
+`` cd api && python run.py ``
+
+Start app client
+`` cd app && yarn install && yarn start ``
 
 ## Contributors: 
 - Serhat YILDIRIM - @julioyildo
