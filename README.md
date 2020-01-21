@@ -9,18 +9,23 @@ A fast and simple RESTful API for Messier objects in Python.
 
 SOR contains data provided by https://www.datastro.eu/explore/dataset/catalogue-de-messier/ 8 object type : Galaxy,Globular Cluster, Open Cluster, Emission Nebula, Planetary Nebula, Reflection Nebula, Double star, Supernova remnant.
 
+Output is done in JSON.
+
 
 #### Minimal functionnalities
-Get more than 110 objects of the sky by NGC, Messier index, Season, Magnitude, Size, Distance (l.y / a. l.), RA, Dec, Constellation, Discoverer Year of discovery. Get images associated. Completion degree on specific variable. 
-
+Get more than 110 objects of the sky with NGC, Messier index, Season, Magnitude, Size, Distance (l.y / a. l.), RA, Dec, Constellation, Discover Year, Discoverer.
+Filter with following parameters : NGC, Messier index, Season, Magnitude, Size, Distance, RA, Dec, Constellation, Discover Year.
+Get images associated on nasa database.
+Get Terlrad map associeted. 
+Completion index on specific variable.
 The scientific attract is to facilitate access to scientific articles and correlation with scientific references. 
+
 
 #### Stack
 - Python 
 - Flask
 - FlaskPlus
 - Mongo (and pymongo)
-- Vue.JS
 - Swagger
 
 ## Install guide
