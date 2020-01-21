@@ -17,6 +17,7 @@ The scientific attract is to facilitate access to scientific articles and correl
 - FlaskPlus
 - Mongo (and pymongo)
 - Vue.JS
+- Swagger
 
 ## Install guide
 
