@@ -9,8 +9,18 @@ A fast and simple RESTful API for Messier objects in Python.
 
 SOR contains data provided by https://www.datastro.eu/explore/dataset/catalogue-de-messier/ 8 object type : Galaxy,Globular Cluster, Open Cluster, Emission Nebula, Planetary Nebula, Reflection Nebula, Double star, Supernova remnant.
 
-Output is done in JSON.
+Output is formated in JSON.
 
+#### Routes
+
+| Method  | Endpoint | Description |
+| ------------- | ------------- | ----------|
+| GET | /all/ |  return all messier objects data  (without articles) |
+| GET | /m/{messierid} | Return all data about a messier object (images, info, articles) |
+| GET | /articles/{messierid} | Return artivles about a specific messier object |
+| GET | /articles/search/{text} | Return articles containing this data |
+| GET | /m/{attribute}/{value} | return object corresponding to a specific attribute value |
+| GET | /images/{messierid} | return images url related to a specific messier |
 
 #### Minimal functionnalities
 Get more than 110 objects of the sky with NGC, Messier index, Season, Magnitude, Size, Distance (l.y / a. l.), RA, Dec, Constellation, Discover Year, Discoverer.
@@ -31,13 +41,13 @@ The scientific attract is to facilitate access to scientific articles and correl
 ## Install guide
 install dependencies
 
-Run Mongo instance 
+Run docker image
 `` docker-compose up -d ``
 
-Start python server
+Start dev python server
 `` cd api && python run.py ``
 
-Start app client
+Start dev app client
 `` cd app && yarn install && yarn start ``
 
 ## Contributors: 
