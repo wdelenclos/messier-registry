@@ -21,6 +21,11 @@ The scientific attract is to facilitate access to scientific articles and correl
 
 ## Install guide
 
+Run Mongo instance 
+`` docker-compose up -d ``
+
+Start python server
+`` python run.py ``
 
 ## Contributors: 
 - Serhat YILDIRIM - @julioyildo
