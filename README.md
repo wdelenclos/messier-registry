@@ -1,3 +1,7 @@
+![MIT](https://img.shields.io/badge/license-MIT-green "Licence")
+![Python 3](https://img.shields.io/badge/python-v3.7-blue "Python")
+
+
 # Space Object Registry 
 A fast and simple RESTful API for Messier objects in Python.
 
@@ -20,6 +24,8 @@ The scientific attract is to facilitate access to scientific articles and correl
 - Swagger
 
 ## Install guide
+inst
+``
 
 Run Mongo instance 
 `` docker-compose up -d ``
