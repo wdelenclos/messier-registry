@@ -11,10 +11,4 @@ services:
         ports:
             - 27018:27018
         command: mongod
-    api: 
-        build: .
-        container_name: sor-api
-        ports:
-            - 8887:8887
-
     
