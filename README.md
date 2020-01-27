@@ -39,13 +39,13 @@ The scientific attract is to facilitate access to scientific articles and correl
 - Swagger
 
 ## Install guide
-install dependencies
+install dependencies in requirements
 
-Run docker image
+Run mongo image
 `` docker-compose up -d ``
 
 Start dev python server
-`` cd api && python run.py ``
+`` cd api && python run-api.py ``
 
 Start dev app client
 `` cd app && yarn install && yarn start ``
