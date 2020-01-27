@@ -2,7 +2,7 @@
 ![Python 3](https://img.shields.io/badge/python-v3.7-blue "Python")
 
 
-# Space Object Registry 
+# Space Object Registry 🚀
 A fast and simple RESTful API for Messier objects in Python.
 
 ## What is Space Object Registry ? 
@@ -12,15 +12,18 @@ SOR contains data provided by https://www.datastro.eu/explore/dataset/catalogue-
 Output is formated in JSON.
 
 #### Routes
+All routes are prefixed with /api/v1/
 
 | Method  | Endpoint | Description |
 | ------------- | ------------- | ----------|
-| GET | /all/ |  return all messier objects data  (without articles) |
-| GET | /m/{messierid} | Return all data about a messier object (images, info, articles) |
+| GET | /objects/ |  return all messier objects data  (without articles) |
+| GET | /objects/{messierid} | Return all data about a messier object (images, info, articles) |
+| GET | /objects/s/{getparams} | return object corresponding to a specific attribute value |
 | GET | /articles/{messierid} | Return artivles about a specific messier object |
-| GET | /articles/search/{text} | Return articles containing this data |
-| GET | /m/{attribute}/{value} | return object corresponding to a specific attribute value |
+| GET | /articles/s/{text} | Return articles containing this data |
+| POST | /articles/ | Post artivles about a specific messier object |
 | GET | /images/{messierid} | return images url related to a specific messier |
+| POST | /images/ | Post images about a specific messier object |
 
 #### Minimal functionnalities
 Get more than 110 objects of the sky with NGC, Messier index, Season, Magnitude, Size, Distance (l.y / a. l.), RA, Dec, Constellation, Discover Year, Discoverer.
@@ -39,16 +42,16 @@ The scientific attract is to facilitate access to scientific articles and correl
 - Swagger
 
 ## Install guide
-install dependencies
+install dependencies in requirements
 
-Run docker image
+Run mongo image
 `` docker-compose up -d ``
 
 Start dev python server
-`` cd api && python run.py ``
+`` cd api && python run-api.py ``
 
-Start dev app client
-`` cd app && yarn install && yarn start ``
+App running on http://127.0.0.1:5000/ 
+Use Postman or an app to use it.
 
 ## Contributors: 
 - Serhat YILDIRIM - @julioyildo
