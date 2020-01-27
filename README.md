@@ -12,14 +12,15 @@ SOR contains data provided by https://www.datastro.eu/explore/dataset/catalogue-
 Output is formated in JSON.
 
 #### Routes
+All routes are prefixed with /api/v1/
 
 | Method  | Endpoint | Description |
 | ------------- | ------------- | ----------|
-| GET | /all/ |  return all messier objects data  (without articles) |
-| GET | /m/{messierid} | Return all data about a messier object (images, info, articles) |
+| GET | /objects/ |  return all messier objects data  (without articles) |
+| GET | /objects/{messierid} | Return all data about a messier object (images, info, articles) |
+| GET | /objects/search/{getparams} | return object corresponding to a specific attribute value |
 | GET | /articles/{messierid} | Return artivles about a specific messier object |
 | GET | /articles/search/{text} | Return articles containing this data |
-| GET | /m/{attribute}/{value} | return object corresponding to a specific attribute value |
 | GET | /images/{messierid} | return images url related to a specific messier |
 
 #### Minimal functionnalities
