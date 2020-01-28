@@ -6,4 +6,5 @@ from flask import Flask
 app = Flask(__name__)
 
 from app import usersData
-# Ajouter ici les nouvelles routes
+from app import objects
+from app import articles

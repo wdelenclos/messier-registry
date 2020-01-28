@@ -37,21 +37,37 @@ The scientific attract is to facilitate access to scientific articles and correl
 #### Stack
 - Python 
 - Flask
-- FlaskPlus
 - Mongo (and pymongo)
-- Swagger
+
+## Requirements: 
+Python 3
+Docker
+Docker-compose
+
 
 ## Install guide
-install dependencies in requirements
 
-Run mongo image
+#### Run mongo image
 `` docker-compose up -d ``
 
-Start dev python server
-`` cd api && python run-api.py ``
+#### Create Venv
+`virtualenv -p python3 env`
 
+#### Activate Venv
+`source env/bin/activate`
+
+#### Install dependecies
+`pip3 install -r requirements.txt`
+ 
+#### Run Api
+`python3 run-api.py `
 App running on http://127.0.0.1:5000/ 
 Use Postman or an app to use it.
+
+
+#### Desactivate Venv
+`deactivate`
+
 
 ## Contributors: 
 - Serhat YILDIRIM - @julioyildo
