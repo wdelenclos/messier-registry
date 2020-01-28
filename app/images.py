@@ -15,15 +15,15 @@ helper_module = imp.load_source('*', './app/helpers.py')
 # Select the database
 db = client.restfulapi
 # Select the collection
-collection = db.articles
+collection = db.images
 
-@app.route("/api/v1/articles", methods=['POST'])
-def create_article():
+@app.route("/api/v1/images", methods=['POST'])
+def create_image():
     """
-       Function to create new articles.
+       Function to create new images.
        """
     try:
-        # Create new articles
+        # Create new images
         try:
             body = ast.literal_eval(json.dumps(request.get_json()))
         except:
@@ -46,10 +46,10 @@ def create_article():
         return "", 500
 
 
-@app.route("/api/v1/articles", methods=['GET'])
-def fetch_article():
+@app.route("/api/v1/images", methods=['GET'])
+def fetch_image():
     """
-       Function to fetch the articles.
+       Function to fetch the images.
        """
     try:
         query_params = helper_module.parse_query_params(request.query_string)
@@ -70,10 +70,10 @@ def fetch_article():
     except:
         return "Internal server error", 500
 
-@app.route("/api/v1/articles/<articles_id>", methods=['POST'])
-def update_article(articles_id):
+@app.route("/api/v1/images/<images_id>", methods=['POST'])
+def update_image(images_id):
     """
-       Function to update the articles.
+       Function to update the images.
        """
     try:
         try:
@@ -81,26 +81,26 @@ def update_article(articles_id):
         except:
             return "", 400
 
-        records_updated = collection.update_one({"id": int(articles_id)}, body)
+        records_updated = collection.update_one({"id": int(images_id)}, body)
 
         if records_updated.modified_count > 0:
 
             return "", 200
         else:
-            return "Article not found", 404
+            return "image not found", 404
     except:
         return "Internal server error", 500
 
 
-@app.route("/api/v1/articles/<articles_id>", methods=['DELETE'])
-def remove_article(articles_id):
+@app.route("/api/v1/images/<images_id>", methods=['DELETE'])
+def remove_image(images_id):
     """
-       Function to remove the articles.
+       Function to remove the images.
        """
     try:
-        delete_articles = collection.delete_one({"id": int(articles_id)})
+        delete_images = collection.delete_one({"id": int(images_id)})
 
-        if delete_articles.deleted_count > 0 :
+        if delete_images.deleted_count > 0 :
             return "", 204
         else:
             return "", 404

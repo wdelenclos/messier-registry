@@ -89,7 +89,7 @@ def update_object(objects_id):
         else:
             return "", 404
     except:
-        return "", 500
+        return "Internal server error", 500
 
 
 @app.route("/api/v1/objects/<objects_id>", methods=['DELETE'])
@@ -105,22 +105,4 @@ def remove_object(objects_id):
         else:
             return "", 404
     except:
-        return "", 500
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    """Send message to the objects with notFound 404 status."""
-    # Message to the objects
-    message = {
-        "err":
-            {
-                "msg": "This route is currently not supported. Please refer API documentation."
-            }
-    }
-    # Making the message looks good
-    resp = jsonify(message)
-    # Sending OK response
-    resp.status_code = 404
-    # Returning the object
-    return resp
+        return "Internal server error", 500
