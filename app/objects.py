@@ -58,17 +58,17 @@ def fetch_object():
             records_fetched = collection.find(query)
 
             # Check if the records found
-            if records_fetched.count() > 0:
+            if records_fetched.count():
                 return dumps(records_fetched)
             else:
                 return "", 404
         else:
-            if collection.find().count > 0:
+            if collection.find().count:
                 return dumps(collection.find())
             else:
                 return jsonify([])
-    except:
-        return "", 500
+    except ValueError:
+        return "Internal server Error", 500
 
 @app.route("/api/v1/objects/<objects_id>", methods=['POST'])
 def update_object(objects_id):
