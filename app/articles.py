@@ -58,12 +58,12 @@ def fetch_article():
             records_fetched = collection.find(query)
 
             # Check if the records found
-            if records_fetched.count() > 0:
+            if records_fetched.count():
                 return dumps(records_fetched)
             else:
                 return "", 404
         else:
-            if collection.find().count > 0:
+            if collection.find().count:
                 return dumps(collection.find())
             else:
                 return jsonify([])
