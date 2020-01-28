@@ -1,14 +1,7 @@
-version: '2'
+version: "3"
 services:
-    mongodb:
-        image: mongo:latest
-        container_name: "sor-mongodb"
-        environment:
-          - MONGO_DATA_DIR=/data/db
-          - MONGO_LOG_DIR=/dev/null
-        volumes:
-          - ./data/db:/data/db
-        ports:
-            - 27018:27018
-        command: mongod
-    
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
