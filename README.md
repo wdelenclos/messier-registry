@@ -39,6 +39,11 @@ The scientific attract is to facilitate access to scientific articles and correl
 - Flask
 - Mongo (and pymongo)
 
+## Requirements: 
+Python 3
+Docker
+Docker-compose
+
 
 ## Install guide
 
@@ -49,13 +54,13 @@ The scientific attract is to facilitate access to scientific articles and correl
 `virtualenv -p python3 env`
 
 #### Activate Venv
-`source venv/bin/activate`
+`source env/bin/activate`
 
 #### Install dependecies
 `pip3 install -r requirements.txt`
  
 #### Run Api
-`cd api && python3 run-api.py `
+`python3 run-api.py `
 App running on http://127.0.0.1:5000/ 
 Use Postman or an app to use it.
 
