@@ -24,3 +24,5 @@ class PushObjectsToDB:
                 current_object = obj['fields']
                 db.catalog.insert(current_object)
 
+
+PushObjectsToDB()
