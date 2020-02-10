@@ -6,7 +6,7 @@
 A fast and simple RESTful API for Messier objects in Python.
 
 ## What is Space Object Registry ? 
-
+Available on https://space.wdelenclos.fr
 SOR contains data provided by https://www.datastro.eu/explore/dataset/catalogue-de-messier/ 8 object type : Galaxy,Globular Cluster, Open Cluster, Emission Nebula, Planetary Nebula, Reflection Nebula, Double star, Supernova remnant.
 
 Output is formated in JSON.
@@ -59,6 +59,9 @@ Docker-compose
 #### Install dependecies
 `pip3 install -r requirements.txt`
  
+### Run migration
+`python3 run-migration.py `
+
 #### Run Api
 `python3 run-api.py `
 App running on http://127.0.0.1:5000/ 

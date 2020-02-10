@@ -40,21 +40,6 @@ def get_initial_response():
     # Returning the object
     return resp
 
-
-@app.route("/update")
-def get_data():
-    """Force fetch data"""
-    # Message to the user
-    response = {
-        'apiVersion': 'v1.0',
-        'status': '200',
-        'message': 'Welcome to the Space Object Registry API'
-    }
-    # Making the message looks good
-    resp = jsonify(response)
-    # Returning the object
-    return resp
-
 @app.errorhandler(404)
 def page_not_found(e):
     """Send message to the articles with notFound 404 status."""
