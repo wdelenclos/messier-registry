@@ -50,7 +50,7 @@ def fetch_article():
     """
        Function to search in the articles content.
        """
-    try
+    try:
         query_params = helper_module.parse_query_params(request.query_string)
         if query_params:
             query = {k: int(v) if isinstance(v, str) and v.isdigit() else v for k, v in query_params.items()}
@@ -71,7 +71,7 @@ def fetch_article():
         return "Internal server error", 500
 
 @app.route("/api/v1/articles", methods=['GET'])
-def fetch_article():
+def fetch_articles():
     """
        Function to fetch the articles.
        """

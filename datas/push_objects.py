@@ -18,11 +18,8 @@ class PushObjectsToDB:
 
 
     def get_objects(self):
-        with open('catalogue-de-messier.json') as json_file:
+        with open('./datas/catalogue-de-messier.json') as json_file:
             datas = json.load(json_file)
             for obj in datas:
                 current_object = obj['fields']
                 db.catalog.insert(current_object)
-
-
-PushObjectsToDB()
