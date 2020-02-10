@@ -1,6 +1,4 @@
 pymongo==3.9.0
 flask==1.1.1
 requests==2.22.0
-beautifulsoup4==4.8.2
 scholarly==0.2.5
-bs4
