@@ -9,12 +9,12 @@ client = MongoClient('mongodb://localhost:27017')
 db = client['messier_registry']
 
 
-class PushObjectsToBD:
+class PushObjectsToDB:
     """This class push all objects in the db """
 
 
     def __init__(self):
-        pass
+        self.get_objects()
 
 
     def get_objects(self):
@@ -24,6 +24,3 @@ class PushObjectsToBD:
                 current_object = obj['fields']
                 db.catalog.insert(current_object)
 
-
-PushObjectsToBD = PushObjectsToBD()
-PushObjectsToBD.get_objects()
