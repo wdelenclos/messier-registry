@@ -1,10 +1,6 @@
-import json 
 import pymongo
 from pymongo import MongoClient
-import os
 import requests
-from bs4 import BeautifulSoup
-import re
 import scholarly
 
 client = MongoClient('mongodb://localhost:27017')
@@ -19,7 +15,7 @@ class PushArticlesToDB:
 
     def __init__(self):
         self.objects_link = []
-        self.guery_scholar()
+        self.query_scholar()
 
 
     def get_db_object(self):
@@ -43,7 +39,7 @@ class PushArticlesToDB:
         return(objects)
 
     
-    def guery_scholar(self):
+    def query_scholar(self):
         """ 
         PARAMS:
         ------
@@ -65,11 +61,10 @@ class PushArticlesToDB:
         while indice < len(tab):
             if 'ngc' in tab[indice]:
                 search_query = scholarly.search_pubs_query(tab[indice]['ngc'])
-                for i in range(50):
+                for i in range(35):
                     current_article = next(search_query) 
                     current_article = current_article.__dict__
                     current_article["biblio"] =  current_article.pop('bib')
-                    current_article["biblio"]["file"] =  current_article["biblio"].pop('eprint')
                     current_article["ngc"]= tab[indice]["ngc"]
                     current_article["_object_id"]= tab[indice]["_id"]
                     print(current_article)
@@ -77,7 +72,3 @@ class PushArticlesToDB:
                 indice +=1
 
             indice +=1
-            
-            
-
-PushArticlesToDB()

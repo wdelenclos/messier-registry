@@ -1,2 +1,0 @@
-from push_articles import PushArticlesToDB
-from push_object import PushObjectsToDB
