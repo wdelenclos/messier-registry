@@ -1,10 +1,6 @@
-import json 
 import pymongo
 from pymongo import MongoClient
-import os
 import requests
-from bs4 import BeautifulSoup
-import re
 import scholarly
 
 client = MongoClient('mongodb://localhost:27017')
@@ -19,23 +15,7 @@ class PushArticlesToDB:
 
     def __init__(self):
         self.objects_link = []
-        # self.get_links()
-        self.guery_scholard()
-
-    # def get_links(self):
-    #     try:
-    #         page = requests.get("http://messier.obspm.fr/objects_f.html")
-    #         if page.status_code== 200:
-    #             soup = BeautifulSoup(page.content, 'html.parser')
-    #             a = soup.find_all('a')
-              
-    #             for i in a:
-    #                 str_i= str(i)
-    #                 if re.search("f/", str_i):
-    #                     self.objects_link.append(i.get('href'))
-    #     except ValueError:
-    #         print("Scraping failed")      
-    #         print(ValueError)       
+        self.query_scholar()
 
 
     def get_db_object(self):
@@ -59,7 +39,7 @@ class PushArticlesToDB:
         return(objects)
 
     
-    def guery_scholard(self):
+    def query_scholar(self):
         """ 
         PARAMS:
         ------
@@ -71,32 +51,24 @@ class PushArticlesToDB:
         
         Return
         ------
-        List:
-            Messier objects
+        None
         
         """ 
 
-
-
-        # Ce code permet de récupéré les 2 premiers articles de chaque objet sur Google Scholar.
-        # Dans l'idéal il faudrait récupérer une 50e d'articles par objet pour pouvoir faire des filtres
-        #  ATTENTION : Une fois les articles récupérés : ne pas oublier de mettre une clé étrangère lian l'article à l'objet dans mongodb!!
-        # VOIR FICHIER : datas/articles.json
-
-        
         tab = self.get_db_object()
         indice  = 0
-        articles = []
+
         while indice < len(tab):
-            if tab[indice]['ngc']==False:
-                indice +=1
-            else:
+            if 'ngc' in tab[indice]:
                 search_query = scholarly.search_pubs_query(tab[indice]['ngc'])
-                for i in range(2):
-                    articles.append(next(search_query))
+                for i in range(35):
+                    current_article = next(search_query) 
+                    current_article = current_article.__dict__
+                    current_article["biblio"] =  current_article.pop('bib')
+                    current_article["ngc"]= tab[indice]["ngc"]
+                    current_article["_object_id"]= tab[indice]["_id"]
+                    print(current_article)
+                    db.articles.insert(current_article)
+                indice +=1
 
-        #Une fois ce bou de code vaidé. Push sur Mongodb.
-            
-            
-
-PushArticlesToDB()
+            indice +=1
