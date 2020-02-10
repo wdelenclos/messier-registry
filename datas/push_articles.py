@@ -76,26 +76,35 @@ class PushArticlesToDB:
         
         """ 
 
-
-
-        # Ce code permet de récupéré les 2 premiers articles de chaque objet sur Google Scholar.
-        # Dans l'idéal il faudrait récupérer une 50e d'articles par objet pour pouvoir faire des filtres
-        #  ATTENTION : Une fois les articles récupérés : ne pas oublier de mettre une clé étrangère lian l'article à l'objet dans mongodb!!
-        # VOIR FICHIER : datas/articles.json
-
-        
         tab = self.get_db_object()
         indice  = 0
         articles = []
-        while indice < len(tab):
-            if tab[indice]['ngc']==False:
-                indice +=1
-            else:
-                search_query = scholarly.search_pubs_query(tab[indice]['ngc'])
-                for i in range(2):
-                    articles.append(next(search_query))
 
-        #Une fois ce bou de code vaidé. Push sur Mongodb.
+        test =   {
+                "_id": 122,
+                "object_id": 1,
+                "body": "",
+                "author": "",
+                "date":"",
+                "url":""
+            }
+        # db.articles.insertOne({ text, "toto":"tata"} )
+
+        while indice < len(tab):
+            if 'ngc' in tab[indice]:
+                print("INDICE ERRO =  ", indice)
+                print("VAL  ",  tab[indice])
+                indice +=1
+            indice +=1
+            # else:
+            #     print("INDICE ERRO =  ", indice)
+            #     print("VAL  ",  tab[indice])
+                # search_query = scholarly.search_pubs_query(tab[indice]['ngc'])
+                # for i in range(2):
+                #     articles.append(next(search_query))
+                
+        
+        # print(articles)
             
             
 
