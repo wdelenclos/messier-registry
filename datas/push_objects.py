@@ -25,7 +25,7 @@ class PushObjectsToDB:
         ----------
         None
 
-        Loop in each element in catalogue-de-messier.json and add to Data base
+        Loop in each element in catalogue-de-messier.json and add to Database
 
         Returns
         -------
