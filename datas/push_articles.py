@@ -19,23 +19,7 @@ class PushArticlesToDB:
 
     def __init__(self):
         self.objects_link = []
-        # self.get_links()
-        self.guery_scholard()
-
-    # def get_links(self):
-    #     try:
-    #         page = requests.get("http://messier.obspm.fr/objects_f.html")
-    #         if page.status_code== 200:
-    #             soup = BeautifulSoup(page.content, 'html.parser')
-    #             a = soup.find_all('a')
-              
-    #             for i in a:
-    #                 str_i= str(i)
-    #                 if re.search("f/", str_i):
-    #                     self.objects_link.append(i.get('href'))
-    #     except ValueError:
-    #         print("Scraping failed")      
-    #         print(ValueError)       
+        self.guery_scholar()
 
 
     def get_db_object(self):
@@ -59,7 +43,7 @@ class PushArticlesToDB:
         return(objects)
 
     
-    def guery_scholard(self):
+    def guery_scholar(self):
         """ 
         PARAMS:
         ------
@@ -71,40 +55,28 @@ class PushArticlesToDB:
         
         Return
         ------
-        List:
-            Messier objects
+        None
         
         """ 
 
         tab = self.get_db_object()
         indice  = 0
-        articles = []
-
-        test =   {
-                "_id": 122,
-                "object_id": 1,
-                "body": "",
-                "author": "",
-                "date":"",
-                "url":""
-            }
-        # db.articles.insertOne({ text, "toto":"tata"} )
 
         while indice < len(tab):
             if 'ngc' in tab[indice]:
-                print("INDICE ERRO =  ", indice)
-                print("VAL  ",  tab[indice])
+                search_query = scholarly.search_pubs_query(tab[indice]['ngc'])
+                for i in range(50):
+                    current_article = next(search_query) 
+                    current_article = current_article.__dict__
+                    current_article["biblio"] =  current_article.pop('bib')
+                    current_article["biblio"]["file"] =  current_article["biblio"].pop('eprint')
+                    current_article["ngc"]= tab[indice]["ngc"]
+                    current_article["_object_id"]= tab[indice]["_id"]
+                    print(current_article)
+                    db.articles.insert(current_article)
                 indice +=1
+
             indice +=1
-            # else:
-            #     print("INDICE ERRO =  ", indice)
-            #     print("VAL  ",  tab[indice])
-                # search_query = scholarly.search_pubs_query(tab[indice]['ngc'])
-                # for i in range(2):
-                #     articles.append(next(search_query))
-                
-        
-        # print(articles)
             
             
 
