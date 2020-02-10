@@ -18,6 +18,20 @@ class PushObjectsToDB:
 
 
     def get_objects(self):
+        """
+        FUNCTION THAT GET  MESSIER OBJECT
+        
+        Parameters
+        ----------
+        None
+
+        Loop in each element in catalogue-de-messier.json and add to Data base
+
+        Returns
+        -------
+        None
+
+        """
         with open('./datas/catalogue-de-messier.json') as json_file:
             datas = json.load(json_file)
             for obj in datas:
