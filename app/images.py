@@ -15,15 +15,15 @@ helper_module = imp.load_source('*', './app/helpers.py')
 # Select the database
 db = client.restfulapi
 # Select the collection
-collection = db.objects
+collection = db.images
 
-@app.route("/api/v1/objects", methods=['POST'])
-def create_object():
+@app.route("/api/v1/images", methods=['POST'])
+def create_image():
     """
-       Function to create new objects.
+       Function to create new images.
        """
     try:
-        # Create new objects
+        # Create new images
         try:
             body = ast.literal_eval(json.dumps(request.get_json()))
         except:
@@ -46,10 +46,10 @@ def create_object():
         return "", 500
 
 
-@app.route("/api/v1/objects", methods=['GET'])
-def fetch_object():
+@app.route("/api/v1/images", methods=['GET'])
+def fetch_image():
     """
-       Function to fetch the objects.
+       Function to fetch the images.
        """
     try:
         query_params = helper_module.parse_query_params(request.query_string)
@@ -67,13 +67,13 @@ def fetch_object():
                 return dumps(collection.find())
             else:
                 return jsonify([])
-    except ValueError:
-        return "Internal server Error", 500
+    except:
+        return "Internal server error", 500
 
-@app.route("/api/v1/objects/<objects_id>", methods=['POST'])
-def update_object(objects_id):
+@app.route("/api/v1/images/<images_id>", methods=['POST'])
+def update_image(images_id):
     """
-       Function to update the objects.
+       Function to update the images.
        """
     try:
         try:
@@ -81,28 +81,29 @@ def update_object(objects_id):
         except:
             return "", 400
 
-        records_updated = collection.update_one({"id": int(objects_id)}, body)
+        records_updated = collection.update_one({"id": int(images_id)}, body)
 
         if records_updated.modified_count > 0:
 
             return "", 200
         else:
-            return "", 404
+            return "image not found", 404
     except:
         return "Internal server error", 500
 
 
-@app.route("/api/v1/objects/<objects_id>", methods=['DELETE'])
-def remove_object(objects_id):
+@app.route("/api/v1/images/<images_id>", methods=['DELETE'])
+def remove_image(images_id):
     """
-       Function to remove the objects.
+       Function to remove the images.
        """
     try:
-        delete_objects = collection.delete_one({"id": int(objects_id)})
+        delete_images = collection.delete_one({"id": int(images_id)})
 
-        if delete_objects.deleted_count > 0 :
+        if delete_images.deleted_count > 0 :
             return "", 204
         else:
             return "", 404
     except:
         return "Internal server error", 500
+

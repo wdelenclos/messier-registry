@@ -45,6 +45,30 @@ def create_article():
         # Add message for debugging purpose
         return "", 500
 
+@app.route("/api/v1/articles/s/<text_entry>", methods=['GET'])
+def fetch_article():
+    """
+       Function to search in the articles content.
+       """
+    try
+        query_params = helper_module.parse_query_params(request.query_string)
+        if query_params:
+            query = {k: int(v) if isinstance(v, str) and v.isdigit() else v for k, v in query_params.items()}
+            # To  add TODO
+            records_fetched = collection.find({"$text": {"$search": text_entry}})
+
+            # Check if the records found
+            if records_fetched.count():
+                return dumps(records_fetched)
+            else:
+                return "", 404
+        else:
+            if collection.find().count:
+                return dumps(collection.find())
+            else:
+                return jsonify([])
+    except:
+        return "Internal server error", 500
 
 @app.route("/api/v1/articles", methods=['GET'])
 def fetch_article():
@@ -68,7 +92,7 @@ def fetch_article():
             else:
                 return jsonify([])
     except:
-        return "", 500
+        return "Internal server error", 500
 
 @app.route("/api/v1/articles/<articles_id>", methods=['POST'])
 def update_article(articles_id):
@@ -87,9 +111,9 @@ def update_article(articles_id):
 
             return "", 200
         else:
-            return "", 404
+            return "Article not found", 404
     except:
-        return "", 500
+        return "Internal server error", 500
 
 
 @app.route("/api/v1/articles/<articles_id>", methods=['DELETE'])
@@ -105,22 +129,5 @@ def remove_article(articles_id):
         else:
             return "", 404
     except:
-        return "", 500
+        return "Internal server error", 500
 
-
-@app.errorhandler(404)
-def page_not_found(e):
-    """Send message to the articles with notFound 404 status."""
-    # Message to the articles
-    message = {
-        "err":
-            {
-                "msg": "This route is currently not supported. Please refer API documentation."
-            }
-    }
-    # Making the message looks good
-    resp = jsonify(message)
-    # Sending OK response
-    resp.status_code = 404
-    # Returning the article
-    return resp
