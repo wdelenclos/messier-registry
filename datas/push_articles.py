@@ -19,14 +19,15 @@ class PushArticlesToDB:
 
 
     def get_db_object(self):
-
         """ 
-        PARAMS:
+        GET OBJECTS FROM DB
+
+        Parameters:
         -------
         None
         
         
-        Function that return list of Messier Object present in MongoDb
+        Function that return list of Messier Object present in MongoDB
         
         
         Return
@@ -40,13 +41,15 @@ class PushArticlesToDB:
 
     
     def query_scholar(self):
-        """ 
-        PARAMS:
+        """
+        QUERT ARTICLES FROM GOOGLE SCHOLAR
+
+        Parameters:
         ------
         None
         
 
-        Function scrap Google Scholar and push i in MongoDb
+        Function scrap Google Scholar and push articles in MongoDB
         
         
         Return
