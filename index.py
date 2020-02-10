@@ -156,7 +156,8 @@ index = """
 </div>
 <div class="card-body">
 <h2>Introduction</h2>
-<p>Space Object Registry is an article database for messier objects. Discover every scientific articles availables about space objects</p>
+<p>Space Object Registry is an article database for messier objects. Discover every scientific articles availables about space objects.</p>
+<a style="color: #fff; margin-bottom: 24px; display: inline-block" href="https://github.com/wdelenclos/messier-registry">See documentation</a>
 </div>
 </section>
 </div>

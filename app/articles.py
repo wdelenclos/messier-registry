@@ -45,6 +45,30 @@ def create_article():
         # Add message for debugging purpose
         return "", 500
 
+@app.route("/api/v1/articles/s/<text_entry>", methods=['GET'])
+def fetch_article():
+    """
+       Function to search in the articles content.
+       """
+    try
+        query_params = helper_module.parse_query_params(request.query_string)
+        if query_params:
+            query = {k: int(v) if isinstance(v, str) and v.isdigit() else v for k, v in query_params.items()}
+            # To  add TODO
+            records_fetched = collection.find({"$text": {"$search": text_entry}})
+
+            # Check if the records found
+            if records_fetched.count():
+                return dumps(records_fetched)
+            else:
+                return "", 404
+        else:
+            if collection.find().count:
+                return dumps(collection.find())
+            else:
+                return jsonify([])
+    except:
+        return "Internal server error", 500
 
 @app.route("/api/v1/articles", methods=['GET'])
 def fetch_article():
