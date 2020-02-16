@@ -2,9 +2,13 @@ import pymongo
 from pymongo import MongoClient
 import requests
 import scholarly
+from config import client
 
-client = MongoClient('mongodb://localhost:27017')
-db = client['messier_registry']
+# Select the database
+db = client.messier_registry
+# Select the collection
+articles = db["articles"]
+catalog = db["catalog"]
 url = "http://messier.obspm.fr/"
 
 
@@ -36,7 +40,7 @@ class PushArticlesToDB:
             Messier objects
         
          """ 
-        objects = list(db.catalog.find())
+        objects = list(catalog.find())
         return(objects)
 
     
@@ -71,6 +75,6 @@ class PushArticlesToDB:
                     current_article["ngc"]= tab[indice]["ngc"]
                     current_article["_object_id"]= tab[indice]["_id"]
                     print(current_article)
-                    db.articles.insert(current_article)
+                    articles.insert(current_article)
                 indice +=1
             indice +=1
