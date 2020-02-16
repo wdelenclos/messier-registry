@@ -13,9 +13,9 @@ import imp
 helper_module = imp.load_source('*', './app/helpers.py')
 
 # Select the database
-db = client.restfulapi
+db = client.messier_registry
 # Select the collection
-collection = db.objects
+catalog = db["catalog"]
 
 @app.route("/api/v1/objects", methods=['POST'])
 def create_object():
@@ -31,7 +31,7 @@ def create_object():
             # Add message for debugging purpose
             return "", 400
 
-        record_created = collection.insert(body)
+        record_created = catalog.insert(body)
 
         # Prepare the response
         if isinstance(record_created, list):
@@ -52,21 +52,13 @@ def fetch_object():
        Function to fetch the objects.
        """
     try:
-        query_params = helper_module.parse_query_params(request.query_string)
-        if query_params:
-            query = {k: int(v) if isinstance(v, str) and v.isdigit() else v for k, v in query_params.items()}
-            records_fetched = collection.find(query)
-
-            # Check if the records found
-            if records_fetched.count():
-                return dumps(records_fetched)
-            else:
-                return "", 404
+        mydoc = catalog.find()
+        for x in mydoc:
+            print(x)
+        if catalog.find().count:
+            return dumps(catalog.find())
         else:
-            if collection.find().count:
-                return dumps(collection.find())
-            else:
-                return jsonify([])
+            return jsonify([])
     except ValueError:
         return "Internal server Error", 500
 
@@ -81,7 +73,7 @@ def update_object(objects_id):
         except:
             return "", 400
 
-        records_updated = collection.update_one({"id": int(objects_id)}, body)
+        records_updated = catalog.update_one({"id": int(objects_id)}, body)
 
         if records_updated.modified_count > 0:
 
@@ -91,6 +83,18 @@ def update_object(objects_id):
     except:
         return "Internal server error", 500
 
+@app.route("/api/v1/objects/<objects_id>", methods=['GET'])
+def get_object(objects_id):
+    """
+       Function to fetch the objects.
+       """
+    try:
+        if catalog.find().count:
+            return dumps(catalog.find_one({ "messier": objects_id }))
+        else:
+            return jsonify([])
+    except ValueError:
+        return "Internal server Error", 500
 
 @app.route("/api/v1/objects/<objects_id>", methods=['DELETE'])
 def remove_object(objects_id):
@@ -98,7 +102,7 @@ def remove_object(objects_id):
        Function to remove the objects.
        """
     try:
-        delete_objects = collection.delete_one({"id": int(objects_id)})
+        delete_objects = catalog.delete_one({"id": int(objects_id)})
 
         if delete_objects.deleted_count > 0 :
             return "", 204

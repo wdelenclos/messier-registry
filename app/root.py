@@ -17,9 +17,7 @@ import imp
 helper_module = imp.load_source('*', './app/helpers.py')
 
 # Select the database
-db = client.restfulapi
-# Select the collection
-collection = db.users
+db = client.messier_registry
 
 @app.route('/')
 def root():

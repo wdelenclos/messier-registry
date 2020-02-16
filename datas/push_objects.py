@@ -2,11 +2,14 @@ import json
 import pymongo
 from pymongo import MongoClient
 import os
+from config import client
 
 
-
-client = MongoClient('mongodb://localhost:27017')
-db = client['messier_registry']
+# Select the database
+db = client.messier_registry
+# Select the collection
+catalog = db["catalog"]
+url = "http://messier.obspm.fr/"
 
 
 class PushObjectsToDB:
@@ -36,4 +39,4 @@ class PushObjectsToDB:
             datas = json.load(json_file)
             for obj in datas:
                 current_object = obj['fields']
-                db.catalog.insert(current_object)
+                catalog.insert(current_object)
