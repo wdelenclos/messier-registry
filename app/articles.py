@@ -13,9 +13,22 @@ import imp
 helper_module = imp.load_source('*', './app/helpers.py')
 
 # Select the database
-db = client.restfulapi
+db = client.messier_registry
 # Select the collection
-collection = db.articles
+collection = db["articles"]
+
+@app.route("/api/v1/articles/<articles_id>", methods=['GET'])
+def get_articles(articles_id):
+    """
+       Function to fetch the objects.
+       """
+    try:
+        if collection.find().count:
+            return dumps(collection.find_one({ "_id": articles_id }))
+        else:
+            return jsonify([])
+    except ValueError:
+        return "Internal server Error", 500
 
 @app.route("/api/v1/articles", methods=['POST'])
 def create_article():
@@ -46,7 +59,7 @@ def create_article():
         return "", 500
 
 @app.route("/api/v1/articles/s/<text_entry>", methods=['GET'])
-def fetch_article():
+def fetch_article(text_entry):
     """
        Function to search in the articles content.
        """

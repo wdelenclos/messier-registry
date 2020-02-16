@@ -13,7 +13,7 @@ import imp
 helper_module = imp.load_source('*', './app/helpers.py')
 
 # Select the database
-db = client.restfulapi
+db = client.messier_registry
 # Select the collection
 collection = db.images
 
