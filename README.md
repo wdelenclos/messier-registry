@@ -18,7 +18,7 @@ All routes are prefixed with /api/v1/
 | ------------- | ------------- | ----------|
 | GET | /objects/ |  return all messier objects data  (without articles) |
 | GET | /objects/{messierid} | Return all data about a messier object (images, info, articles) |
-| GET | /objects/s/{getparams} | return object corresponding to a specific attribute value |
+| GET | /objects/q/{query} | return object corresponding to a specific attribute value |
 | GET | /articles/{messierid} | Return artivles about a specific messier object |
 | GET | /articles/s/{text} | Return articles containing this data |
 | POST | /articles/ | Post artivles about a specific messier object |
