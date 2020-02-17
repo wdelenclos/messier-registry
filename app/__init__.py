@@ -6,3 +6,4 @@ app = Flask(__name__)
 from app import root
 from app import objects
 from app import articles
+from app import images
