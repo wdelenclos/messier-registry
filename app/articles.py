@@ -64,22 +64,10 @@ def fetch_article(text_entry):
        Function to search in the articles content.
        """
     try:
-        query_params = helper_module.parse_query_params(request.query_string)
-        if query_params:
-            query = {k: int(v) if isinstance(v, str) and v.isdigit() else v for k, v in query_params.items()}
-            # To  add TODO
-            records_fetched = collection.find({"$text": {"$search": text_entry}})
-
-            # Check if the records found
-            if records_fetched.count():
-                return dumps(records_fetched)
-            else:
-                return "", 404
+        if collection.find().count:
+            return jsonify(collection.find({"$text": {"$search": text_entry}}))
         else:
-            if collection.find().count:
-                return dumps(collection.find())
-            else:
-                return jsonify([])
+            return jsonify([])
     except:
         return "Internal server error", 500
 
@@ -101,7 +89,7 @@ def fetch_articles():
                 return "", 404
         else:
             if collection.find().count:
-                return dumps(collection.find())
+                return jsonify(collection.find())
             else:
                 return jsonify([])
     except:
