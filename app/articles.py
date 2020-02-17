@@ -17,18 +17,65 @@ db = client.messier_registry
 # Select the collection
 collection = db["articles"]
 
-@app.route("/api/v1/articles/<articles_id>", methods=['GET'])
-def get_articles(articles_id):
+# -------------------- GET article
+
+@app.route("/api/v1/articles/s/<text_entry>", methods=['GET'])
+def fetch_article(text_entry):
+    """
+       Function to search in the articles content.
+       """
+    try:
+        if collection.find({"$text": {"$search": text_entry}}).count:
+            return jsonify(json.loads(dumps(collection.find({"$text": {"$search": text_entry}})))), 200
+        else:
+            return 'Not found', 404
+    except:
+        return "Internal server error", 500
+
+@app.route("/api/v1/articles", methods=['GET'])
+def fetch_articles():
+    """
+       Function to fetch the articles.
+       """
+    try:
+        if collection.find().count:
+            return jsonify(json.loads(dumps(collection.find()))), 200
+        else:
+            return 'Not found', 404
+    except:
+        return "Internal server error", 500
+
+
+@app.route("/api/v1/articles/<ngc_id>", methods=['GET'])
+def get_articles(ngc_id):
     """
        Function to fetch the objects.
        """
     try:
-        if collection.find().count:
-            return dumps(collection.find_one({ "_id": articles_id }))
+        if collection.find_one({ "ngc": ngc_id }):
+            return jsonify(json.loads(dumps(collection.find_one({ "ngc": ngc_id })))), 200
         else:
-            return jsonify([])
+            return 'Not found', 404
     except ValueError:
         return "Internal server Error", 500
+
+
+@app.route("/api/v1/articles/q/", methods=['GET'])
+def get_articles_with_params():
+    """
+       Function to fetch articles with query params.
+       """
+    try:
+        if request.args:
+            queryDictionary = request.args.copy().to_dict()
+            if collection.find(queryDictionary).count:
+                return jsonify(json.loads(dumps(collection.find(queryDictionary)))), 200
+            else: 
+                return 'Not found', 404
+    except ValueError:
+        return "Internal server Error", 500
+
+# -------------------- POST an article
 
 @app.route("/api/v1/articles", methods=['POST'])
 def create_article():
@@ -58,43 +105,6 @@ def create_article():
         # Add message for debugging purpose
         return "", 500
 
-@app.route("/api/v1/articles/s/<text_entry>", methods=['GET'])
-def fetch_article(text_entry):
-    """
-       Function to search in the articles content.
-       """
-    try:
-        if collection.find().count:
-            return jsonify(collection.find({"$text": {"$search": text_entry}}))
-        else:
-            return jsonify([])
-    except:
-        return "Internal server error", 500
-
-@app.route("/api/v1/articles", methods=['GET'])
-def fetch_articles():
-    """
-       Function to fetch the articles.
-       """
-    try:
-        query_params = helper_module.parse_query_params(request.query_string)
-        if query_params:
-            query = {k: int(v) if isinstance(v, str) and v.isdigit() else v for k, v in query_params.items()}
-            records_fetched = collection.find(query)
-
-            # Check if the records found
-            if records_fetched.count():
-                return dumps(records_fetched)
-            else:
-                return "", 404
-        else:
-            if collection.find().count:
-                return jsonify(collection.find())
-            else:
-                return jsonify([])
-    except:
-        return "Internal server error", 500
-
 @app.route("/api/v1/articles/<articles_id>", methods=['POST'])
 def update_article(articles_id):
     """
@@ -116,6 +126,7 @@ def update_article(articles_id):
     except:
         return "Internal server error", 500
 
+# -------------------- DELETE an article
 
 @app.route("/api/v1/articles/<articles_id>", methods=['DELETE'])
 def remove_article(articles_id):
