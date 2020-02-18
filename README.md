@@ -16,14 +16,12 @@ All routes are prefixed with /api/v1/
 
 | Method  | Endpoint | Description |
 | ------------- | ------------- | ----------|
-| GET | /objects/ |  return all messier objects data  (without articles) |
+| GET | /objects/ | return all messier objects data  (without articles) |
 | GET | /objects/{messierid} | Return all data about a messier object (images, info, articles) |
-| GET | /objects/q/{query} | return object corresponding to a specific attribute value |
+| GET | /objects/q/{query} | return object corresponding to a specific attribute |
 | GET | /articles/{messierid} | Return artivles about a specific messier object |
 | GET | /articles/s/{text} | Return articles containing this data |
-| POST | /articles/ | Post artivles about a specific messier object |
 | GET | /images/{messierid} | return images url related to a specific messier |
-| POST | /images/ | Post images about a specific messier object |
 
 #### Minimal functionnalities
 Get more than 110 objects of the sky with NGC, Messier index, Season, Magnitude, Size, Distance (l.y / a. l.), RA, Dec, Constellation, Discover Year, Discoverer.

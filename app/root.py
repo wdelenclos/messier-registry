@@ -28,8 +28,8 @@ def get_initial_response():
     """Welcome message for the Messier registry."""
     # Message to the user
     message = {
-        'apiVersion': 'v1.0',
-        'status': '200',
+        'apiVersion': 'v1.1',
+        'status': 'Online',
         'message': 'Welcome to the Space Object Registry API. Refer to the documentation on https://github.com/wdelenclos/messier-registry.',
         'sources' : sources
     }

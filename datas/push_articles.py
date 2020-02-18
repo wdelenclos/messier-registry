@@ -68,7 +68,7 @@ class PushArticlesToDB:
         while indice < len(tab):
             if 'ngc' in tab[indice]:
                 search_query = scholarly.search_pubs_query(tab[indice]['ngc'])
-                for i in range(5):
+                for i in range(500):
                     current_article = next(search_query) 
                     current_article = current_article.__dict__
                     current_article["biblio"] =  current_article.pop('bib')
