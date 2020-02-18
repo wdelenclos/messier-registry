@@ -5,10 +5,10 @@ index = """
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="description" content="Entrepreneur, Développeur et UX Designer. Vous cherchez à en savoir plus sur moi, c'est ici.">
+<meta name="description" content="Article Database">
 <meta name="author" content="Wladimir Delenclos">
 <meta name="theme-color" content="#222526">
-<title>Space object registry</title>
+<title>🚀 Space object registry</title>
 <style>
         body {
             background: linear-gradient(180deg, #2E2F31 0%, #222526 51.04%, #1b1e1f 100%);
@@ -147,7 +147,7 @@ index = """
 </head>
 <body>
 <div class="content">
-<h1>Space Object Registry <span> The scientific messier's articles database</span></h1>
+<h1>🚀 Space Object Registry <span> The scientific messier's articles database</span></h1>
 <div class="section group">
 <div class="col span_2_of_3">
 <section class="card">
@@ -164,14 +164,41 @@ index = """
 <div class="col span_1_of_3">
 <section class="card">
 <div class="card-header">
-<span>Info about API</span>
+<span>API Info</span>
 </div>
 <div class="card-body">
 <h2 id="status">Online</h2>
-<p>Version: 1.0</p>
+<p>Version: <span id="vers">1.0</span></p>
+<p>Articles in database: <span id="articles">0</span></p>
+<p>Object in database: <span id="obj">0</span></p>
 </div>
 </section>
 </div>
+</div>
+<div class="section group">
+    <div class="col span_2_of_3">
+    <section class="card">
+    <div class="card-header">
+    <span>List of Objects</span>
+    </div>
+    <div class="card-body" id="list" style="max-height: 450px; overflow: auto;">
+    </div>
+    </section>
+    </div>
+      <div class="col span_1_of_3">
+    <section class="card">
+    <div class="card-header">
+    <span>Random article</span>
+    </div>
+    <div class="card-body">
+        <h3 id="ArticleTitle"></h3>
+        <p id="ArticleExtract"></p>
+        <p>- <span id="ArticleAuthor"></span> |  <span id="ArticleNgc"> </span></p>
+        <hr style="opacity: 0.3; margin: 16px 0" />
+        <a style="color: #fff; margin-bottom: 24px; display: inline-block" href="http://space.wdelenclos.fr/api/v1/articles">See all articles</a>
+    </div>
+    </section>
+    </div>
 </div>
 </div>
 </body>
@@ -189,7 +216,7 @@ index = """
 
                     // Examine the text in the response
                     response.json().then(function(data) {
-                        console.log(data.status);
+                         document.getElementById('status').innerHTML = data.status;
                     });
                     }
                 )
@@ -213,7 +240,69 @@ index = """
 
                     // Examine the text in the response
                     response.json().then(function(data) {
-                        console.log(data.length);
+                        document.getElementById('obj').innerHTML = data.length;
+
+                        let content = "";
+                       
+                        data.forEach(element => {
+                         content +=  `<a style="color: #fff; margin-bottom: 8px; display: block" href="http://space.wdelenclos.fr/api/v1/objects/${element.messier}">${element.messier} | ${element.ngc} | ${element.latin_name_nom_latin} | Type: ${element.objet}</a>` 
+                        });
+
+                         document.getElementById('list').innerHTML = content;
+                    });
+                    }
+                )
+                .catch(function(err) {
+                    console.log('Fetch Error :-S', err);
+                });
+        } else {
+            
+        }
+    }
+     function getArticles(){
+        if (window.fetch) {
+            fetch('http://space.wdelenclos.fr/api/v1/articles')
+                .then(
+                    function(response) {
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                        return;
+                    }
+
+                    // Examine the text in the response
+                    response.json().then(function(data) {
+                        document.getElementById('articles').innerHTML = data.length;
+                        let randint = Math.floor(Math.random() * Math.floor(data.length - 1));
+                        let obj = data[randint];
+                        document.getElementById('ArticleTitle').innerHTML = obj.biblio.title;
+                        document.getElementById('ArticleExtract').innerHTML = obj.biblio.abstract;
+                        document.getElementById('ArticleAuthor').innerHTML = obj.biblio.author;
+                        document.getElementById('ArticleNgc').innerHTML = obj.ngc;
+                    });
+                    }
+                )
+                .catch(function(err) {
+                    console.log('Fetch Error :-S', err);
+                });
+        } else {
+            
+        }
+    }
+     function getVers(){
+        if (window.fetch) {
+            fetch('http://space.wdelenclos.fr/api/v1/')
+                .then(
+                    function(response) {
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                        return;
+                    }
+
+                    // Examine the text in the response
+                    response.json().then(function(data) {
+                        document.getElementById('vers').innerHTML = data.apiVersion;
                     });
                     }
                 )
@@ -226,6 +315,8 @@ index = """
     }
     getAPIStatus();
     getObj();
+    getArticles();
+    getVers();
 </script>
 </html>
 """
